@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<body>
+<p id="d"></p>
+
+<input type="number" id="inp" value=""></input>
+<button type="button" id="done" onclick="check()">Send</button>
+
+</body>
+<script>
+function radPick(s, e) {
+  return Math.floor(e * Math.random()) + s;
+}
+var a;
+var b;
+//var c;
+var corr;
+function Newthing() {
+  a = radPick(2, 1000);
+  b = radPick(2, 1000);
+  //c = radPick(2, 1000);
+  
+  corr = a + b;
+  document.getElementById("d").innerHTML = a + "+" + b +"=";
+}
+Newthing();
+function check() {
+  let ans = document.getElementById("inp");
+  if (ans.value != corr) alert("wrong, it should be " + corr);
+  else if(ans.value == 123456789) alert("!");
+  else alert("CORRECT");
+  ans.value = "";
+  Newthing();
+}
+</script>
+<style>
+html {
+  background-color: #111111;
+}
+p {
+  font-family: Arial;
+  color: white;
+}
+#inp {
+  color: white;
+  background-color: #222222;
+  border-radius: 8px;
+}
+#done {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 3px 6px;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 5px;
+}
+</style>
+</html>
