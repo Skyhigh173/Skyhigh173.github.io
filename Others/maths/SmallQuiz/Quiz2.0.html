@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<body>
+<div id="IPO">
+<p id="Display">Loading</p>
+<input id="Inputs" type="number" value=""></input>
+<button id="Buttons" onclick="check()">Check</button>
+<p id="Output">Your answer will be displayed here!</p>
+</div>
+<div id="setting" hidden>
+<p><b>Setting</b></p>
+</div>
+</body>
+<style>
+html {
+  background-color: Black;
+  font-family: Arial;
+}
+p {
+  color: White;
+}
+#IPO {
+  color: White;
+  background-color: #040404;
+  text-align: center;
+}
+#setting {
+  text-align: center;
+  background-color: #111111;
+}
+#Buttons {
+  background-color: #008CBA; /* blue */
+  border: none;
+  color: white;
+  padding: 3px 6px;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 5px;
+}
+</style>
+<script>
+var a, b, c, d, corr;
+function goTo(element, x, y) {
+  let d = document.getElementById(element);
+d.style.position = "absolute";
+if(x != "") d.style.left = x +'px';
+d.style.top = y +'px';
+}
+function rad(s, e) {
+  return s + Math.floor(Math.random() * e);
+}
+function update(op) {
+  goTo("setting", "", 400);
+  let sent = `${a}+${b}=`;
+  document.getElementById("Display").innerHTML = sent;
+}
+function check() {
+  let a = document.getElementById("Inputs");
+  let ans = a.value;
+  if (ans == corr) document.getElementById("Output").innerHTML = "good job!";
+  else document.getElementById("Output").innerHTML = `try again! The correct answer is ${corr}.`;
+  
+  NewGame();
+  a.value = "";
+}
+function NewGame() {
+  let s = 2;
+  e = 100;
+  a = rad(s,e);
+  b = rad(s,e);
+  corr = a + b;
+  update();
+}
+
+  NewGame();
+</script>
+</html>
