@@ -6,32 +6,47 @@
 <input type="number" id="inp" value=""></input>
 <button type="button" id="done" onclick="check()">Send</button>
 
+<div id="Setting">
+<p id="settingP"><b>Setting</b></p>
+
+<select name="difficuity" id="diff">
+  <option value="1">Easy</option>
+  <option value="6">Medium</option>
+  <option value="18">Hard</option>
+  <option value="120">Impossible</option>
+</select>
+<button onclick="New() " id="done">Reset</button>
+</div>
 </body>
 <script>
 function radPick(s, e) {
   return Math.floor(e * Math.random()) + s;
 }
-var a;
-var b;
-//var c;
+var a, b, c;
 var corr;
-function Newthing() {
-  a = radPick(2, 1000);
-  b = radPick(2, 1000);
-  //c = radPick(2, 1000);
+function New() {
+  let to = 40 * Number(document.getElementById("diff").value);
+  a = radPick(2, to);
+  b = radPick(2, to);
+  c = radPick(2, to);
   
-  corr = a + b;
-  document.getElementById("d").innerHTML = a + "+" + b +"=";
+  corr = a + b - c;
+  document.getElementById("d").innerHTML = a + "+" + b + "-" + c + "=";
 }
-Newthing();
 function check() {
   let ans = document.getElementById("inp");
   if (ans.value != corr) alert("wrong, it should be " + corr);
-  else if(ans.value == 123456789) alert("!");
   else alert("CORRECT");
   ans.value = "";
-  Newthing();
+  New();
 }
+
+
+var d = document.getElementById('Setting');
+d.style.position = "absolute";
+d.style.left = 10 +'px';
+d.style.top = 400 +'px';
+New();
 </script>
 <style>
 html {
