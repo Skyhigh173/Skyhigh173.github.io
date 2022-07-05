@@ -63,6 +63,7 @@ function buy() {
     let newcost = Math.floor(1000 * (factor ** timesTwoLv));
     let times = 2 ** timesTwoLv;
     document.getElementById("u1").innerHTML = `get 2x score (cost:${newcost} current:${times}x Lv${timesTwoLv})`;
+    update();
   }
 }
 function goTo(element, x, y) {
