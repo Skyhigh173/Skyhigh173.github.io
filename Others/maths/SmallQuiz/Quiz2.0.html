@@ -1,12 +1,19 @@
 <!DOCTYPE html>
 <html>
 <body>
+<p id="score">score:0</p><p id="combo">combo:0</p>
 <div id="IPO">
 <p id="Display">Loading</p>
 <input id="Inputs" type="number" value=""></input>
 <button id="Buttons" onclick="check()">Check</button>
 <p id="Output">Your answer will be displayed here!</p>
 </div>
+<div id="upgrade">
+<p><b>Upgrades</b></p>
+<p id="u1">get 2x score (cost:1000  current:1x)</p>
+<button id="Buttons" onclick="buy()">Buy</button>
+</div>
+
 <div id="setting" hidden>
 <p><b>Setting</b></p>
 </div>
@@ -38,9 +45,24 @@ p {
   font-size: 16px;
   border-radius: 5px;
 }
+#combo {
+  font-size: 10px;
+}
 </style>
 <script>
 var a, b, c, d, corr;
+var timer = 0, score = 0, combo = 0;
+var timesTwoLv = 0;
+
+function buy() {
+  let factor = 2.1;
+  if (score >= 1000 * (factor ** timesTwoLv)) {
+    timesTwoLv += 1;
+    let newcost = Math.floor(1000 * (factor ** timesTwoLv));
+    let times = 2 ** timesTwoLv;
+    document.getElementById("u1").innerHTML = `get 2x score (cost:${newcost} current:${times}x Lv${timesTwoLv})`;
+  }
+}
 function goTo(element, x, y) {
   let d = document.getElementById(element);
 d.style.position = "absolute";
@@ -50,26 +72,39 @@ d.style.top = y +'px';
 function rad(s, e) {
   return s + Math.floor(Math.random() * e);
 }
+
 function update(op) {
-  goTo("setting", "", 400);
+  goTo("setting", "", 450);
+  goTo("upgrade", "", 300);
   let sent = `${a}+${b}=`;
   document.getElementById("Display").innerHTML = sent;
+  document.getElementById("score").innerHTML = "score:" + score;
+  document.getElementById("combo").innerHTML = "combo:" + combo;
 }
 function check() {
+  timer = Date.now() - timer;
   let a = document.getElementById("Inputs");
   let ans = a.value;
-  if (ans == corr) document.getElementById("Output").innerHTML = "good job!";
-  else document.getElementById("Output").innerHTML = `try again! The correct answer is ${corr}.`;
+  if (ans == corr){
+    document.getElementById("Output").innerHTML = "good job!";
+    combo += 1;
+    score += Math.floor((2 ** timesTwoLv) * 10000 / timer * 100 * (1 + combo / 5));
+    
+  } else {
+    document.getElementById("Output").innerHTML = `try again! The correct answer is ${corr}.`;
+    combo = 0;
+  }
   
   NewGame();
   a.value = "";
 }
 function NewGame() {
   let s = 2;
-  e = 100;
+  e = 10 * (1 + combo / 5);
   a = rad(s,e);
   b = rad(s,e);
   corr = a + b;
+  timer = Date.now();
   update();
 }
 
