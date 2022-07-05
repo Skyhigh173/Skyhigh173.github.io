@@ -53,10 +53,12 @@ p {
 var a, b, c, d, corr;
 var timer = 0, score = 0, combo = 0;
 var timesTwoLv = 0;
+var factor = 2.1;
 
 function buy() {
-  let factor = 2.1;
   if (score >= 1000 * (factor ** timesTwoLv)) {
+    score -= 1000 * (factor ** timesTwoLv);
+    if (score <= 0) score = 0;
     timesTwoLv += 1;
     let newcost = Math.floor(1000 * (factor ** timesTwoLv));
     let times = 2 ** timesTwoLv;
