@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+<div>
+<p>point A : x</p>
+<input id="X" type="number" value="-1"></input>
+<p>y:</p>
+<input id="Y" type="number" value="2"></input>
+</div>
+<p>is rotated by </p>
+<input id="rot" type="number" max="360" min="-360" value="180"></input>
+<p>degrees.</p>
+<p>Final result:</p>
+<p id="out">calcing</p>
+</body>
+<script>
+  function tick() {
+  let deg = Math.PI / 180;
+  let inv = 180 / Math.PI;
+  let x = document.getElementById("X").value;
+  let y = document.getElementById("Y").value;
+  let d = document.getElementById("rot").value;
+  let n = Math.sqrt((x * x) + (y * y));
+  let ang = inv * Math.atan((x / y)) - d;
+  x = n * Math.sin(ang * deg);
+  y = n * Math.cos(ang * deg);
+  document.getElementById("out").innerHTML = ang;
+  document.getElementById("out").innerHTML = "rotated by" + d + " degrees:   " + "(" + (Math.round(x * 100) / 100) + "," + (Math.round(y * 100) / 100) + ")";
+}
+
+  
+  
+// update event
+var UpdateInterval = null;
+function setWindowEvent() {
+  if (UpdateInterval != null) window.clearInterval(UpdateInterval);
+  UpdateInterval = window.setInterval(tick, 1);
+}
+setWindowEvent();
+</script>
+</html>
